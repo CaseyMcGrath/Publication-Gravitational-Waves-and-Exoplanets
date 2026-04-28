@@ -63,6 +63,10 @@ The relevant code used to generate each figure is organized into separate folder
 > - ___bias_ratio.ipynb___: A Jupyter Notebook for generating the SNR bias ratio.
 > - ___bias_ratio.pdf___: The PDF figure.
 
+> __Figures_6-7__
+> - ___spectral_features.ipynb___: A Jupyter Notebook for generating the two figures that demonstrate the features of frequency modulated signal spectra, for monochromatic and chirping signals.
+> - ___spectral_features.pdf___: The PDF figure.
+
 > ___functions.py___
 >
 > All of the main functions for the various formulae presented in the paper are contained in this file.  These functions are imported by the other jupyter notebooks and python scripts.
