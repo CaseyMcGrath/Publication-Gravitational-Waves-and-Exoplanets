@@ -23,7 +23,7 @@ _ArXiv_:
 <strong>Multi-Messenger Exoplanets:</strong> 
 </div>
 <div align="center">
-<strong>Combining LISA GW RV with JWST IR-Excess to Search for Circumbinary Exoplanets</strong>
+<strong>Combining IR Excess and Astrometry with GW Detections of Double White Dwarf Exoplanets</strong>
 </div>
 
 
