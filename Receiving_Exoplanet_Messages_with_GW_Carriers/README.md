@@ -41,6 +41,16 @@ The relevant code used to generate each figure is organized into separate folder
 > - ___binary_types_chirpmass.pdf___: The PDF figure.
 
 > __Figure_2__
+>
+> - __sim_data_files__
+>     - ___LISA1_PSD1s_chirp_fromFT.txt___: Data saved of the phase chirping signal in the top left panel of the final figure.
+>     - ___LISA1_PSD1s_mono_fromFT.txt___: Data saved of the monochromatic signal in the top left panel of the final figure.
+>     - ___LISA2_PSD1s_chirp_fromFT.txt___: Data saved of the phase chirping signal in the bottom left panel of the final figure.
+>     - ___LISA2_PSD1s_mono_fromFT.txt___: Data saved of the monochromatic signal in the bottom left panel of the final figure.
+>     - ___LVK1_PSD1s_chirp_fromFT.txt___: Data saved of the phase chirping signal in the top right panel of the final figure.
+>     - ___LVK1_PSD1s_mono_fromFT.txt___: Data saved of the monochromatic signal in the top right panel of the final figure.
+>     - ___LVK2_PSD1s_chirp_fromFT.txt___: Data saved of the phase chirping signal in the bottom right panel of the final figure.
+>     - ___LVK2_PSD1s_mono_fromFT.txt___: Data saved of the monochromatic signal in the bottom right panel of the final figure.
 > - ___signal_power.pdf___: The PDF figure.
 > - ___signal_power.py___: Python script for calculating and generating the PSDs of the H+ strain for each of the six systems.
 
@@ -51,7 +61,7 @@ The relevant code used to generate each figure is organized into separate folder
 > __Figure_4__
 >
 > - __LISAsim_data_files__
->     - ___lisasim1.h5___: Data saved from the LISA simulation used in the top right panel of the final figure.
+>     - ___lisasim1.h5___: Data saved from the LISA simulation used in the left and top right panels of the final figure.
 >     - ___lisasim2.h5___: Data saved from the LISA simulation used in the middle right panel of the final figure.
 >     - ___lisasim3.h5___: Data saved from the LISA simulation used in the bottom right panel of the final figure.
 >     - ___orbits_equalarm_20350101.h5___: This file contains the data for a LISA orbit that was generated using equal-armlength orbits, given a start time of 2035/01/01.  This orbit information is read in by the _lisasim.py_ script in order to perform the LISA simulation.
@@ -65,7 +75,8 @@ The relevant code used to generate each figure is organized into separate folder
 
 > __Figures_6-7__
 > - ___spectral_features.ipynb___: A Jupyter Notebook for generating the two figures that demonstrate the features of frequency modulated signal spectra, for monochromatic and chirping signals.
-> - ___spectral_features.pdf___: The PDF figure.
+> - ___inter-intra_signal_confusion.pdf___: The PDF figure 7.
+> - ___spectral_features.pdf___: The PDF figure 6.
 
 > ___functions.py___
 >
