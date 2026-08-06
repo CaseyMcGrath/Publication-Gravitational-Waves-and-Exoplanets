@@ -1,13 +1,22 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 """
-Created on Thu Aug 14 09:46:15 2025
+   Copyright 2025 Casey McGrath
 
-@author: cdmcgrat
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+
+File: signal_power.py
+
+Purpose: Run the simulations and generate Figure 2
 """
-
-
-
 
 import numpy as np
 from astropy import constants as const, units as u
@@ -37,6 +46,8 @@ def tick_label_writer(nlist):
             else:
                 labellist += [r'+{0}$f_p$'.format(n)]
     return labellist
+
+
 
 
 
@@ -74,17 +85,13 @@ plt.rcParams['xtick.labelsize']  = 12
 plt.rcParams['ytick.labelsize']  = 12
 
 
-
 fig, ax = plt.subplot_mosaic([['tl','tr'],['bl','br']], figsize=(20,10))
 plt.subplots_adjust(wspace=0.1)
 
 ax['tl'].set_ylabel(r'PSD $\left[\mathrm{Hz}^{-1}\right]$', fontsize=16), ax['bl'].set_ylabel(r'PSD $\left[\mathrm{Hz}^{-1}\right]$', fontsize=16)
 ax['bl'].set_xlabel(r'$f \ \left[\mathrm{mHz}\right]$',     fontsize=16), ax['br'].set_xlabel(r'$f \ \left[\mathrm{Hz}\right]$',      fontsize=16)
 
-
 ax['tl'].set_title('Binary System', fontsize=20, pad=10), ax['tr'].set_title('Triaxial Body', fontsize=20, pad=10)
-
-
 
 ax['tl'].xaxis.set_major_formatter(FormatStrFormatter('%.3f')), ax['tr'].xaxis.set_major_formatter(FormatStrFormatter('%.4f'))
 ax['bl'].xaxis.set_major_formatter(FormatStrFormatter('%.4f')), ax['br'].xaxis.set_major_formatter(FormatStrFormatter('%.6f'))
@@ -98,7 +105,7 @@ ax['bl'].xaxis.set_major_formatter(FormatStrFormatter('%.4f')), ax['br'].xaxis.s
 
 
 # ----------------------------------------------------------------------------
-# LISA panel simulations 
+# Binary System panel simulations 
 # ----------------------------------------------------------------------------
 # Initial GW frequency
 fgw0 = 5e-3
@@ -119,7 +126,7 @@ print("Binary System initial chirp rate = {0:0.2f} nHz/year".format((dfgw0*u.Hz*
 
 
 # -------------------------------------------------------
-# LISA #1
+# Binary #1
 # -------------------------------------------------------
 Mp  = 10*const.M_jup.value   # Exoplanet mass
 T_p = 0.01*u.year.to(u.s)      # Exoplanet period
@@ -148,22 +155,27 @@ N = 100
 # very *slight* offset can help mitigate that.
 freqs = np.arange(fgw0 - 20*f_p, fgw0 + 20*f_p, 1/Tobs) * 1.00000000000001
 
+# ---------------------------------------------------------------------------------------------------
+'''
+Uncomment the following lines to calculate the waveform and save the data to the text file.
+'''
 # # Monochromatic signal
 # Hp_FT_mono = M_mono_GW_FT(waveform_mono.Hp_A1, waveform_mono.Hp_A2, waveform_mono.fgw0, waveform_mono.f_p, waveform_mono.epsilon, waveform_mono.phi0, waveform_mono.phi_p, waveform_mono.t0, freqs, Tobs, N)
 # # Chirping signal
 # Hp_FT_chirp = M_chirp_GW_FT(waveform_chirp.Hp_A1, waveform_chirp.Hp_A2, waveform_chirp.fgw0, waveform_chirp.f_p, waveform_chirp.dfgw0, waveform_chirp.epsilon, waveform_chirp.phi0, waveform_chirp.phi_p, waveform_chirp.t0, freqs, Tobs, N)
 
-
 # # -------------- PSDs ----------------
 # PSD1s_mono_fromFT  = PSD_1s_fromFT(Hp_FT_mono, Tobs).real
 # PSD1s_chirp_fromFT = PSD_1s_fromFT(Hp_FT_chirp, Tobs).real
 
-# np.savetxt('./sim_data_files/LISA1_PSD1s_mono_fromFT.txt', PSD1s_mono_fromFT)
-# np.savetxt('./sim_data_files/LISA1_PSD1s_chirp_fromFT.txt', PSD1s_chirp_fromFT)
+# np.savetxt('./sim_data_files/Binary1_PSD1s_mono_fromFT.txt', PSD1s_mono_fromFT)
+# np.savetxt('./sim_data_files/Binary1_PSD1s_chirp_fromFT.txt', PSD1s_chirp_fromFT)
+# ---------------------------------------------------------------------------------------------------
+
+PSD1s_mono_fromFT = np.loadtxt('./sim_data_files/Binary1_PSD1s_mono_fromFT.txt')
+PSD1s_chirp_fromFT = np.loadtxt('./sim_data_files/Binary1_PSD1s_chirp_fromFT.txt')
 
 
-PSD1s_mono_fromFT = np.loadtxt('./sim_data_files/LISA1_PSD1s_mono_fromFT.txt')
-PSD1s_chirp_fromFT = np.loadtxt('./sim_data_files/LISA1_PSD1s_chirp_fromFT.txt')
 
 # -------------- Plot ----------------
 ax['tl'].semilogy(freqs*u.Hz.to(u.mHz), PSD1s_mono_fromFT,        color='#4b026c', label='Monochromatic')
@@ -201,7 +213,7 @@ print("epsilon =", waveform_mono.epsilon, "\n")
 
 
 # -------------------------------------------------------
-# LISA #2
+# Binary #2
 # -------------------------------------------------------
 Mp  = 10*const.M_jup.value    # Exoplanet mass
 T_p = 0.4*u.year.to(u.s)      # Exoplanet period
@@ -230,22 +242,27 @@ N = 100
 # very *slight* offset can help mitigate that.
 freqs = np.arange(fgw0 - 20*f_p, fgw0 + 20*f_p, 1/Tobs) * 1.0000000001
 
+# ---------------------------------------------------------------------------------------------------
+'''
+Uncomment the following lines to calculate the waveform and save the data to the text file.
+'''
 # # Monochromatic signal
 # Hp_FT_mono = M_mono_GW_FT(waveform_mono.Hp_A1, waveform_mono.Hp_A2, waveform_mono.fgw0, waveform_mono.f_p, waveform_mono.epsilon, waveform_mono.phi0, waveform_mono.phi_p, waveform_mono.t0, freqs, Tobs, N)
 # # Chirping signal
 # Hp_FT_chirp = M_chirp_GW_FT(waveform_chirp.Hp_A1, waveform_chirp.Hp_A2, waveform_chirp.fgw0, waveform_chirp.f_p, waveform_chirp.dfgw0, waveform_chirp.epsilon, waveform_chirp.phi0, waveform_chirp.phi_p, waveform_chirp.t0, freqs, Tobs, N)
 
-
 # # -------------- PSDs ----------------
 # PSD1s_mono_fromFT  = PSD_1s_fromFT(Hp_FT_mono, Tobs).real
 # PSD1s_chirp_fromFT = PSD_1s_fromFT(Hp_FT_chirp, Tobs).real
 
-# np.savetxt('./sim_data_files/LISA2_PSD1s_mono_fromFT.txt', PSD1s_mono_fromFT)
-# np.savetxt('./sim_data_files/LISA2_PSD1s_chirp_fromFT.txt', PSD1s_chirp_fromFT)
+# np.savetxt('./sim_data_files/Binary2_PSD1s_mono_fromFT.txt', PSD1s_mono_fromFT)
+# np.savetxt('./sim_data_files/Binary2_PSD1s_chirp_fromFT.txt', PSD1s_chirp_fromFT)
+# ---------------------------------------------------------------------------------------------------
+
+PSD1s_mono_fromFT = np.loadtxt('./sim_data_files/Binary2_PSD1s_mono_fromFT.txt')
+PSD1s_chirp_fromFT = np.loadtxt('./sim_data_files/Binary2_PSD1s_chirp_fromFT.txt')
 
 
-PSD1s_mono_fromFT = np.loadtxt('./sim_data_files/LISA2_PSD1s_mono_fromFT.txt')
-PSD1s_chirp_fromFT = np.loadtxt('./sim_data_files/LISA2_PSD1s_chirp_fromFT.txt')
 
 # -------------- Plot ----------------
 ax['bl'].semilogy(freqs*u.Hz.to(u.mHz), PSD1s_mono_fromFT,        color='#4b026c')
@@ -285,11 +302,8 @@ print("epsilon =", waveform_mono.epsilon, "\n")
 
 
 
-
-
-
 # ----------------------------------------------------------------------------
-# LVK panel simulations 
+# Triaxial panel simulations 
 # ----------------------------------------------------------------------------
 # Initial GW frequency
 fgw0 = 100
@@ -309,11 +323,8 @@ print("Triaxial Body initial chirp rate = {0:0.2f} nHz/year".format((dfgw0*u.Hz*
 
 
 
-
-
-
 # -------------------------------------------------------
-# LVK #1
+# Triaxial #1
 # -------------------------------------------------------
 Mp  = 10*const.M_jup.value  # Exoplanet mass
 T_p = 0.01*u.year.to(u.s)  # Exoplanet period
@@ -342,22 +353,27 @@ N = 200
 # very *slight* offset can help mitigate that.
 freqs = np.arange(fgw0 - 150*f_p, fgw0 + 150*f_p, 1/Tobs) * 1.0000000001
 
+# ---------------------------------------------------------------------------------------------------
+'''
+Uncomment the following lines to calculate the waveform and save the data to the text file.
+'''
 # # Monochromatic signal
 # Hp_FT_mono = M_mono_GW_FT(waveform_mono.Hp_A1, waveform_mono.Hp_A2, waveform_mono.fgw0, waveform_mono.f_p, waveform_mono.epsilon, waveform_mono.phi0, waveform_mono.phi_p, waveform_mono.t0, freqs, Tobs, N)
 # # Chirping signal
 # Hp_FT_chirp = M_chirp_GW_FT(waveform_chirp.Hp_A1, waveform_chirp.Hp_A2, waveform_chirp.fgw0, waveform_chirp.f_p, waveform_chirp.dfgw0, waveform_chirp.epsilon, waveform_chirp.phi0, waveform_chirp.phi_p, waveform_chirp.t0, freqs, Tobs, N)
 
-
 # # -------------- PSDs ----------------
 # PSD1s_mono_fromFT  = PSD_1s_fromFT(Hp_FT_mono, Tobs).real
 # PSD1s_chirp_fromFT = PSD_1s_fromFT(Hp_FT_chirp, Tobs).real
 
-# np.savetxt('./sim_data_files/LVK1_PSD1s_mono_fromFT.txt', PSD1s_mono_fromFT)
-# np.savetxt('./sim_data_files/LVK1_PSD1s_chirp_fromFT.txt', PSD1s_chirp_fromFT)
+# np.savetxt('./sim_data_files/Triaxial1_PSD1s_mono_fromFT.txt', PSD1s_mono_fromFT)
+# np.savetxt('./sim_data_files/Triaxial1_PSD1s_chirp_fromFT.txt', PSD1s_chirp_fromFT)
+# ---------------------------------------------------------------------------------------------------
+
+PSD1s_mono_fromFT = np.loadtxt('./sim_data_files/Triaxial1_PSD1s_mono_fromFT.txt')
+PSD1s_chirp_fromFT = np.loadtxt('./sim_data_files/Triaxial1_PSD1s_chirp_fromFT.txt')
 
 
-PSD1s_mono_fromFT = np.loadtxt('./sim_data_files/LVK1_PSD1s_mono_fromFT.txt')
-PSD1s_chirp_fromFT = np.loadtxt('./sim_data_files/LVK1_PSD1s_chirp_fromFT.txt')
 
 # -------------- Plot ----------------
 ax['tr'].semilogy(freqs, PSD1s_mono_fromFT,        color='#4b026c')
@@ -387,8 +403,6 @@ ax['tr'].set_xticks(ax_tick_list), ax['tr'].minorticks_off()
 ax['tr'].grid(axis='x')
 
 
-
-
 # Create the inset graph
 axins = ax['tr'].inset_axes([0.53, 0.04, 0.45, 0.45], xlim=(fgw0 - 5*f_p, fgw0 + 5*f_p), ylim=(1e-54, 1e-45)) # <--[x0, y0, width, height]
 axins.semilogy(freqs, PSD1s_mono_fromFT,        color='#4b026c')
@@ -411,7 +425,7 @@ print("epsilon =", waveform_mono.epsilon, "\n")
 
 
 # -------------------------------------------------------
-# LVK #2
+# Triaxial #2
 # -------------------------------------------------------
 Mp   = 1*const.M_earth.value #0.001*const.M_jup.value  # Exoplanet mass
 T_p  = 0.4*u.year.to(u.s)     # Exoplanet period
@@ -440,23 +454,27 @@ N = 100
 # very *slight* offset can help mitigate that.
 freqs = np.arange(fgw0 - 60*f_p, fgw0 + 60*f_p, 1/Tobs) * 1.0000000001
 
+# ---------------------------------------------------------------------------------------------------
+'''
+Uncomment the following lines to calculate the waveform and save the data to the text file.
+'''
 # # Monochromatic signal
 # Hp_FT_mono = M_mono_GW_FT(waveform_mono.Hp_A1, waveform_mono.Hp_A2, waveform_mono.fgw0, waveform_mono.f_p, waveform_mono.epsilon, waveform_mono.phi0, waveform_mono.phi_p, waveform_mono.t0, freqs, Tobs, N)
 # # Chirping signal
 # Hp_FT_chirp = M_chirp_GW_FT(waveform_chirp.Hp_A1, waveform_chirp.Hp_A2, waveform_chirp.fgw0, waveform_chirp.f_p, waveform_chirp.dfgw0, waveform_chirp.epsilon, waveform_chirp.phi0, waveform_chirp.phi_p, waveform_chirp.t0, freqs, Tobs, N)
 
-
 # # -------------- PSDs ----------------
 # PSD1s_mono_fromFT  = PSD_1s_fromFT(Hp_FT_mono, Tobs).real
 # PSD1s_chirp_fromFT = PSD_1s_fromFT(Hp_FT_chirp, Tobs).real
 
+# np.savetxt('./sim_data_files/Triaxial2_PSD1s_mono_fromFT.txt', PSD1s_mono_fromFT)
+# np.savetxt('./sim_data_files/Triaxial2_PSD1s_chirp_fromFT.txt', PSD1s_chirp_fromFT)
+# ---------------------------------------------------------------------------------------------------
 
-# np.savetxt('./sim_data_files/LVK2_PSD1s_mono_fromFT.txt', PSD1s_mono_fromFT)
-# np.savetxt('./sim_data_files/LVK2_PSD1s_chirp_fromFT.txt', PSD1s_chirp_fromFT)
+PSD1s_mono_fromFT = np.loadtxt('./sim_data_files/Triaxial2_PSD1s_mono_fromFT.txt')
+PSD1s_chirp_fromFT = np.loadtxt('./sim_data_files/Triaxial2_PSD1s_chirp_fromFT.txt')
 
 
-PSD1s_mono_fromFT = np.loadtxt('./sim_data_files/LVK2_PSD1s_mono_fromFT.txt')
-PSD1s_chirp_fromFT = np.loadtxt('./sim_data_files/LVK2_PSD1s_chirp_fromFT.txt')
 
 # -------------- Plot ----------------
 ax['br'].semilogy(freqs, PSD1s_mono_fromFT,        color='#4b026c')
@@ -497,9 +515,7 @@ print("epsilon =", waveform_mono.epsilon, "\n")
 
 
 
-
-# plt.savefig('./signal_power-EDITS.pdf', bbox_inches='tight')
-
+# plt.savefig('./signal_power.pdf', bbox_inches='tight')
 plt.show();
 
 
