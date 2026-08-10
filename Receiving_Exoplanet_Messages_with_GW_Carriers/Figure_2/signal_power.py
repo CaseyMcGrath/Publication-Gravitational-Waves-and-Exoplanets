@@ -1,5 +1,5 @@
 """
-   Copyright 2025 Casey McGrath
+   Copyright 2026 Casey McGrath
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -30,6 +30,9 @@ from functions import *
 
 
 
+# -------------------------------------------------------
+# Plotting functions
+# -------------------------------------------------------
 def tick_label_writer(nlist):
     labellist = []
     for n in nlist:
@@ -76,11 +79,12 @@ norm = "backward"
 
 
 
-
-
+# -------------------------------------------------------
+# Initialize Plot and it's general formatting
+# -------------------------------------------------------
 plt.rcParams['font.family']      = 'serif'
 plt.rcParams['font.serif']       = ['DejaVu Serif']
-plt.rcParams['mathtext.fontset'] = 'cm'  # <--- default: dejavusans
+plt.rcParams['mathtext.fontset'] = 'cm'
 plt.rcParams['xtick.labelsize']  = 12
 plt.rcParams['ytick.labelsize']  = 12
 
