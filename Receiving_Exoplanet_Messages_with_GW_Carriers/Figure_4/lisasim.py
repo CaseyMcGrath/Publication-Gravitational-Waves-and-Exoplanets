@@ -1,4 +1,23 @@
 """
+   Copyright 2026 Casey McGrath
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+
+File: lisasim.py
+
+Purpose: Run the LISA simulations used in Figure 4 (output saved to files).
+
+
 This script is for generating the LISA response in **fractional frequency deviation** TDI given just a specified orbit and GW response.  All LISA noise sources are therefore not simulated.
 
 - First the GW response is generated given the desired input parameters, then the orbit + GW response are passed directly to PyTDI.
@@ -12,15 +31,11 @@ Output:
 - (intermediate) two GW response files are created but then deleted after the PyTDI step is complete
 - h5 file containing the metadata of the simulation + the TDI outputs for both simulations (1) and (2)
 
-Run:
->>> python3 script_lisasim.py
-
 """
 import numpy as np
 import h5py
 from astropy import constants as const, units as u
 import os
-
 
 # Orbits
 from datetime import datetime
@@ -151,11 +166,10 @@ gwsource_chirp.write(path = gw_file_chirp,
 # Directly pass the orbit and GW Response to PyTDI.
 
 # --> CRITICAL NOTE: remember, when PyTDI outputs .from_gws(), the output is 
-#                    in **fractional frequency fluctuations**, so we don't
-#                    divide by the central frequency (unlike .from_instrument())
+#                    in **fractional frequency fluctuations**
 
 # Location of PyTDI output file
-tdi_file = './LISAsim_data_files/lisasim1.h5'
+tdi_file = './LISAsim_data_files/lisasim1_NEW.h5'
 
 # --> if the file exists from a previous run, first delete it:
 if os.path.exists(tdi_file):
@@ -166,11 +180,6 @@ hf = h5py.File(tdi_file, 'w')  # <-- Use if initially creating the document
 hf.create_dataset('times', data=times)
 hf.close()
 
-# Use the desired timing array to "mask out" the simulation data to only the 
-# portion of the data that we want.
-# --> This is important for removing the numerical artifacts that filters in 
-#     PyTDI will introduce at the start of the data.
-#mask = np.isin(times_sim, times)
 
 #------------------------------------------------------------------------------------------
 data = Data.from_gws(gw_file_mono, orbit_file, gw_dataset='tcb', orbit_dataset='tcb/ltt')
@@ -181,7 +190,6 @@ X_data = TDI_X(data.measurements)
 
 hf = h5py.File(tdi_file, 'a')  # <-- Use if appending to the document!
 
-# hf.create_dataset('monochromatic', data=X_data[mask])
 hf.create_dataset('monochromatic', data=X_data)
 hf.close()
 
@@ -194,7 +202,6 @@ X_data = TDI_X(data.measurements)
 
 hf = h5py.File(tdi_file, 'a')  # <-- Use if appending to the document!
 
-# hf.create_dataset('chirping', data=X_data[mask])
 hf.create_dataset('chirping', data=X_data)
 hf.close()
 
@@ -296,8 +303,7 @@ gwsource_chirp.write(path = gw_file_chirp,
 # Directly pass the orbit and GW Response to PyTDI.
 
 # --> CRITICAL NOTE: remember, when PyTDI outputs .from_gws(), the output is 
-#                    in **fractional frequency fluctuations**, so we don't
-#                    divide by the central frequency (unlike .from_instrument())
+#                    in **fractional frequency fluctuations**
 
 # Location of PyTDI output file
 tdi_file = './LISAsim_data_files/lisasim2.h5'
@@ -311,11 +317,6 @@ hf = h5py.File(tdi_file, 'w')  # <-- Use if initially creating the document
 hf.create_dataset('times', data=times)
 hf.close()
 
-# Use the desired timing array to "mask out" the simulation data to only the 
-# portion of the data that we want.
-# --> This is important for removing the numerical artifacts that filters in 
-#     PyTDI will introduce at the start of the data.
-#mask = np.isin(times_sim, times)
 
 #------------------------------------------------------------------------------------------
 data = Data.from_gws(gw_file_mono, orbit_file, gw_dataset='tcb', orbit_dataset='tcb/ltt')
@@ -326,7 +327,6 @@ X_data = TDI_X(data.measurements)
 
 hf = h5py.File(tdi_file, 'a')  # <-- Use if appending to the document!
 
-# hf.create_dataset('monochromatic', data=X_data[mask])
 hf.create_dataset('monochromatic', data=X_data)
 hf.close()
 
@@ -339,7 +339,6 @@ X_data = TDI_X(data.measurements)
 
 hf = h5py.File(tdi_file, 'a')  # <-- Use if appending to the document!
 
-# hf.create_dataset('chirping', data=X_data[mask])
 hf.create_dataset('chirping', data=X_data)
 hf.close()
 
@@ -441,8 +440,7 @@ gwsource_chirp.write(path = gw_file_chirp,
 # Directly pass the orbit and GW Response to PyTDI.
 
 # --> CRITICAL NOTE: remember, when PyTDI outputs .from_gws(), the output is 
-#                    in **fractional frequency fluctuations**, so we don't
-#                    divide by the central frequency (unlike .from_instrument())
+#                    in **fractional frequency fluctuations**
 
 # Location of PyTDI output file
 tdi_file = './LISAsim_data_files/lisasim3.h5'
@@ -456,11 +454,6 @@ hf = h5py.File(tdi_file, 'w')  # <-- Use if initially creating the document
 hf.create_dataset('times', data=times)
 hf.close()
 
-# Use the desired timing array to "mask out" the simulation data to only the 
-# portion of the data that we want.
-# --> This is important for removing the numerical artifacts that filters in 
-#     PyTDI will introduce at the start of the data.
-#mask = np.isin(times_sim, times)
 
 #------------------------------------------------------------------------------------------
 data = Data.from_gws(gw_file_mono, orbit_file, gw_dataset='tcb', orbit_dataset='tcb/ltt')
@@ -471,7 +464,6 @@ X_data = TDI_X(data.measurements)
 
 hf = h5py.File(tdi_file, 'a')  # <-- Use if appending to the document!
 
-# hf.create_dataset('monochromatic', data=X_data[mask])
 hf.create_dataset('monochromatic', data=X_data)
 hf.close()
 
@@ -484,7 +476,6 @@ X_data = TDI_X(data.measurements)
 
 hf = h5py.File(tdi_file, 'a')  # <-- Use if appending to the document!
 
-# hf.create_dataset('chirping', data=X_data[mask])
 hf.create_dataset('chirping', data=X_data)
 hf.close()
 
