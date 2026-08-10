@@ -1,5 +1,5 @@
 """
-   Copyright 2025 Casey McGrath
+   Copyright 2026 Casey McGrath
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -177,7 +177,7 @@ class GWexo:
         array
             GW (orbital) angular frequency calculated along the time array (units: [rad/s]).
         """
-        return (1 - self.V_r(t)/c) * (self.omega0 + self.domega0*(t-self.t0))
+        return (1 - self.V_r(t)/const.c) * (self.omega0 + self.domega0*(t-self.t0))
     
     def Phi_gw(self, t):
         """GW phase function.
@@ -299,6 +299,7 @@ def K_semiamp(T_p, M_sys, M_p, inc):
     """
     return (2*np.pi*const.G.value / T_p)**(1/3) * (M_p / (M_sys + M_p)**(2/3)) * np.sin(inc)
 
+
 def epsilon(M_p, inc, f_p, fgw0, M_sys):
     """Exoplanet modulation index parameter.
 
@@ -346,6 +347,7 @@ def Mchirp(M1, M2):
     Mb = M1 + M2
     return (M1*M2)**(3/5) / Mb**(1/5)
     
+
 def Amp_binary(Mchirp, R, fgw0):
     """GW Amplitude parameter for a binary system.
 
@@ -364,6 +366,7 @@ def Amp_binary(Mchirp, R, fgw0):
         Binary system GW amplitude parameter (units: [-]). 
     """
     return 2 * (const.G.value * Mchirp)**(5/3) / (const.c.value**4 * R) * (np.pi * fgw0)**(2/3)
+
 
 def Amp_tri(ep, Iz, R, fgw0):
     """GW Amplitude parameter for a triaxial body.
@@ -410,6 +413,7 @@ def dTau_c(Mchirp, fgw0):
     omega0 = np.pi * fgw0
     return 5/256 * (const.c.value**3 / (const.G.value * Mchirp))**(5/3) / omega0**(8/3)
     
+
 def dTau(ep, Iz, fgw0):
     """Dynamical time parameter (triaxial body).
 
@@ -429,6 +433,7 @@ def dTau(ep, Iz, fgw0):
     """
     omega0 = np.pi * fgw0
     return 5/128 * (const.c.value**5 / (const.G.value * ep**2 * Iz)) / omega0**4
+
 
 def dfgw_dt_binary(Mchirp, fgw0, t, t0):
     """Rate of change of the GW frequency for a binary system, driven purely by GW radiation.
@@ -451,6 +456,7 @@ def dfgw_dt_binary(Mchirp, fgw0, t, t0):
     """
     dTc = dTau_c(Mchirp, fgw0)
     return 3/8 * (fgw0 / dTc) * (1 - (t-t0)/dTc)**(-11/8)
+
 
 def dfgw_dt_tri(ep, Iz, fgw0, t, t0):
     """Rate of change of the GW frequency for a triaxial body, driven purely by GW radiation.
@@ -763,8 +769,6 @@ def M_mono_GW_FT(A1, A2, fc, fm, epsilon, phi0, phip, t0, freqs, Tobs, N):
     array
         Fourier transform calculated along the input frequencies array.
     """
-    wc = 2*np.pi*fc
-    wm = 2*np.pi*fm
     Phi0_1 = phi0 - epsilon*np.sin(phip)
     Phi0_2 = phi0 - epsilon*np.sin(phip) + np.pi/2
     
@@ -987,9 +991,6 @@ def M_chirp_GW_FT(A1, A2, fc, fm, dfgw0, epsilon, phi0, phip, t0, freqs, Tobs, N
     array
         Fourier transform calculated along the input frequencies array.
     """
-    wc  = 2*np.pi*fc
-    wm  = 2*np.pi*fm
-
     Phi0_1  = phi0 - epsilon*np.sin(phip)
     Phi0_2  = phi0 - epsilon*np.sin(phip) + np.pi/2
     dfprime = dfgw0
