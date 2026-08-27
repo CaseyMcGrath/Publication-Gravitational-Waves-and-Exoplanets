@@ -10,9 +10,8 @@ This repository contains the code/calculations for reproducing most of the plots
 </div>
 
 
-_Publication Journal_:
+_Authors_: Casey McGrath, Mary Anne Limbach, Scott C. Noble, Vincent Kofman
 
-_ArXiv_:
 
 
 

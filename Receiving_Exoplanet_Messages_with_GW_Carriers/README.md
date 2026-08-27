@@ -10,9 +10,8 @@ This repository contains the code/calculations for reproducing all of the plots 
 </div>
 
 
-_Publication Journal_:
+_Author_: Casey McGrath
 
-_ArXiv_:
 
 
 
