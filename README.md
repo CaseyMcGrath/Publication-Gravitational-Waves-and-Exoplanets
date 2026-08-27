@@ -1,10 +1,12 @@
 # Publication-Gravitational-Waves-and-Exoplanets
-Materials for reproducing published figures/results that describe exoplanet detection using gravitational wave observations.
+Materials for reproducing published figures and results that describe exoplanet detection using gravitational wave observations.
 
 
 ## Materials Availability
 
 This repository contains the code/calculations for reproducing plots in the following publications:
+
+
 
 <div align="center">
 <strong>Receiving Exoplanet Messages with Gravitational Wave Carriers:</strong> 
@@ -13,10 +15,7 @@ This repository contains the code/calculations for reproducing plots in the foll
 <strong>The Gravitational Wave Radial Velocity Method</strong>
 </div>
 
-
-_Publication Journal_:
-
-_ArXiv_:
+_Author_: Casey McGrath 
 
 
 <div align="center">
@@ -27,9 +26,7 @@ _ArXiv_:
 </div>
 
 
-_Publication Journal_:
-
-_ArXiv_:
+_Authors_: Casey McGrath, Mary Anne Limbach, Scott C. Noble, Vincent Kofman
 
 
 
