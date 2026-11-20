@@ -10,7 +10,11 @@ This repository contains the code/calculations for reproducing all of the plots 
 </div>
 
 
-_Author_: Casey McGrath
+_Author_: Casey McGrath \
+_Publisher_: The Astrophysical Journal \
+https://iopscience.iop.org/article/10.3847/1538-4357/aea216
+
+
 
 
 
