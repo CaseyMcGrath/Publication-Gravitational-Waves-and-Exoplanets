@@ -10,6 +10,7 @@ This repository contains the code/calculations for reproducing most of the plots
 </div>
 
 
+\
 _Authors_: Casey McGrath, Mary Anne Limbach, Scott C. Noble, Vincent Kofman \
 _Publisher_: The Astrophysical Journal \
 https://iopscience.iop.org/article/10.3847/1538-4357/aea07d

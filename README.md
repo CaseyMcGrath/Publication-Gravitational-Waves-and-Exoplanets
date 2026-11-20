@@ -15,11 +15,13 @@ This repository contains the code/calculations for reproducing plots in the foll
 <strong>The Gravitational Wave Radial Velocity Method</strong>
 </div>
 
+\
 _Author_: Casey McGrath \
 _Publisher_: The Astrophysical Journal \
 https://iopscience.iop.org/article/10.3847/1538-4357/aea216
 
 
+<br>
 <div align="center">
 <strong>Multi-Messenger Exoplanets:</strong> 
 </div>
@@ -27,6 +29,7 @@ https://iopscience.iop.org/article/10.3847/1538-4357/aea216
 <strong>Combining IR Excess and Astrometry with GW Detections of Double White Dwarf Exoplanets</strong>
 </div>
 
+\
 _Authors_: Casey McGrath, Mary Anne Limbach, Scott C. Noble, Vincent Kofman \
 _Publisher_: The Astrophysical Journal \
 https://iopscience.iop.org/article/10.3847/1538-4357/aea07d
